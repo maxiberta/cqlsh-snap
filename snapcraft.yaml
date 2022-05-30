@@ -1,5 +1,5 @@
 name: cqlsh
-base: core22
+base: core18
 adopt-info: cqlsh
 summary: Command-line client for running CQL commands on a cassandra cluster
 description: |
@@ -7,7 +7,7 @@ description: |
 
   Normally it's packaged as part of the full Apache Cassandra™ installation. This repo repackages it into a standalone Python package for lighter-weight installs.
 
-grade: devel
+grade: stable
 confinement: strict
 license: Apache-2.0
 website: https://github.com/maxiberta/cqlsh-snap
@@ -22,7 +22,9 @@ apps:
 parts:
   cqlsh:
     plugin: python
+    python-version: python2
     source: https://github.com/jeffwidman/cqlsh.git
+    source-tag: "5.0.5"
     override-build: |
-      craftctl set version=$(git describe --tags --long)
-      craftctl default
+      snapcraftctl set-version $(git describe --tags)
+      snapcraftctl build
