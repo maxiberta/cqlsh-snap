@@ -7,7 +7,7 @@ description: |
 
   Normally it's packaged as part of the full Apache Cassandra™ installation. This repo repackages it into a standalone Python package for lighter-weight installs.
 
-grade: devel
+grade: stable
 confinement: strict
 license: Apache-2.0
 website: https://github.com/maxiberta/cqlsh-snap
@@ -23,6 +23,7 @@ parts:
   cqlsh:
     plugin: python
     source: https://github.com/jeffwidman/cqlsh.git
+    source-tag: "6.0.1"
     override-build: |
-      craftctl set version=$(git describe --tags --long)
+      craftctl set version=$(git describe --tags)
       craftctl default
