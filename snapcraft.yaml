@@ -5,7 +5,7 @@ summary: Command-line client for running CQL commands on a cassandra cluster
 description: |
   cqlsh is a Python-based command-line client for running CQL commands on a cassandra cluster.
 
-  Normally it's packaged as part of the full Apache Cassandra™ installation. This repo repackages it into a standalone Python package for lighter-weight installs.
+  Normally it's packaged as part of the full Apache Cassandra™ installation. This snap repackages it into a standalone Python package for lighter-weight installs.
 
 grade: stable
 confinement: strict
