@@ -30,3 +30,5 @@ parts:
       snapcraftctl build
     python-packages:
       - cassandra-driver < 3.27
+    stage-packages:
+      - python-concurrent.futures
