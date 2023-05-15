@@ -28,3 +28,5 @@ parts:
     override-build: |
       snapcraftctl set-version $(git describe --tags)
       snapcraftctl build
+    python-packages:
+      - cassandra-driver < 3.27
