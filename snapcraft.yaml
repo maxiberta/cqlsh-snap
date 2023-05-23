@@ -32,6 +32,9 @@ parts:
       snapcraftctl build
       find "${SNAPCRAFT_PART_INSTALL}/bin/" -type f -executable -print0 | xargs -0 \
         sed -i "1 s|^#\\!${SNAPCRAFT_PART_INSTALL}/bin/python.*$|#\\!/usr/bin/env ${SNAPCRAFT_PYTHON_INTERPRETER}|"
+      ln -sfn {../../usr,"${SNAPCRAFT_PART_INSTALL}"}/lib/python2.7/os.py
+      ln -sfn {../../usr,"${SNAPCRAFT_PART_INSTALL}"}/lib/python2.7/os.pyc
+      ln -sfn {../../usr,"${SNAPCRAFT_PART_INSTALL}"}/lib/python2.7/lib-dynload
     build-packages:
       - python-is-python2
       - python-six
