@@ -1,6 +1,6 @@
 name: cqlsh
-base: core18
-adopt-info: cqlsh
+base: core20
+version: "5.0.5"
 summary: Command-line client for running CQL commands on a cassandra cluster
 description: |
   cqlsh is a Python-based command-line client for running CQL commands on a cassandra cluster.
@@ -17,18 +17,28 @@ compression: lzo
 apps:
   cqlsh:
     command: bin/cqlsh
+    environment:
+      PYTHONPATH: $PYTHONPATH:$SNAP/lib/python2.7/site-packages
     plugs: [network]
 
 parts:
   cqlsh:
     plugin: python
-    python-version: python2
-    source: https://github.com/jeffwidman/cqlsh.git
-    source-tag: "5.0.5"
+    build-environment:
+    - SNAPCRAFT_PYTHON_INTERPRETER: python2
     override-build: |
-      snapcraftctl set-version $(git describe --tags)
+      cp ${SNAPCRAFT_PROJECT_DIR}/venv.py .
+      ln -s /usr/share/python-wheels/ ${SNAPCRAFT_PART_INSTALL}/usr/share/
       snapcraftctl build
+      find "${SNAPCRAFT_PART_INSTALL}/bin/" -type f -executable -print0 | xargs -0 \
+        sed -i "1 s|^#\\!${SNAPCRAFT_PART_INSTALL}/bin/python.*$|#\\!/usr/bin/env ${SNAPCRAFT_PYTHON_INTERPRETER}|"
+    build-packages:
+      - python-is-python2
+      - python-six
+      - virtualenv
     python-packages:
       - cassandra-driver < 3.27
+      - cqlsh == 5.0.5
     stage-packages:
+      - python2
       - python-concurrent.futures
