@@ -1,5 +1,5 @@
 name: cqlsh
-base: core20
+base: core22
 version: "5.0.5"
 summary: Command-line client for running CQL commands on a cassandra cluster
 description: |
@@ -25,23 +25,20 @@ parts:
   cqlsh:
     plugin: python
     build-environment:
-    - SNAPCRAFT_PYTHON_INTERPRETER: python2
+    - PARTS_PYTHON_INTERPRETER: python2
+    source: .
     override-build: |
-      cp ${SNAPCRAFT_PROJECT_DIR}/venv.py .
-      ln -s /usr/share/python-wheels/ ${SNAPCRAFT_PART_INSTALL}/usr/share/
-      snapcraftctl build
-      find "${SNAPCRAFT_PART_INSTALL}/bin/" -type f -executable -print0 | xargs -0 \
-        sed -i "1 s|^#\\!${SNAPCRAFT_PART_INSTALL}/bin/python.*$|#\\!/usr/bin/env ${SNAPCRAFT_PYTHON_INTERPRETER}|"
-      ln -sfn {../../usr,"${SNAPCRAFT_PART_INSTALL}"}/lib/python2.7/os.py
-      ln -sfn {../../usr,"${SNAPCRAFT_PART_INSTALL}"}/lib/python2.7/os.pyc
-      ln -sfn {../../usr,"${SNAPCRAFT_PART_INSTALL}"}/lib/python2.7/lib-dynload
+      craftctl default
+      find "${CRAFT_PART_INSTALL}/bin/" -type f -executable -print0 | xargs -0 \
+        sed -i "1 s|^#\\!${CRAFT_PART_INSTALL}/bin/python.*$|#\\!/usr/bin/env ${PARTS_PYTHON_INTERPRETER}|"
     build-packages:
-      - python-is-python2
       - python-six
+      - python2-pip-whl
+      - python2-setuptools-whl
       - virtualenv
     python-packages:
       - cassandra-driver < 3.27
       - cqlsh == 5.0.5
+      - futures
     stage-packages:
       - python2
-      - python-concurrent.futures
