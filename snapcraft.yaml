@@ -23,7 +23,7 @@ parts:
   cqlsh:
     plugin: python
     source: https://github.com/jeffwidman/cqlsh.git
-    source-tag: "6.1.2"
+    source-tag: "6.2.0"
     override-build: |
       craftctl set version=$(git describe --tags)
       craftctl default
