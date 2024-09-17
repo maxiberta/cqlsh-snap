@@ -1,5 +1,5 @@
 name: cqlsh
-base: core22
+base: core24
 adopt-info: cqlsh
 summary: Command-line client for running CQL commands on a cassandra cluster
 description: |
