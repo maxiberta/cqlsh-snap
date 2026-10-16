@@ -16,7 +16,7 @@ compression: lzo
 
 apps:
   cqlsh:
-    command: bin/cqlsh
+    command: bin/python3 -m cqlshlib
     plugs: [network]
 
 parts:
@@ -27,3 +27,5 @@ parts:
     override-build: |
       craftctl set version=$(git describe --tags)
       craftctl default
+    stage-packages:
+      - python3-venv
