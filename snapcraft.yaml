@@ -22,10 +22,8 @@ apps:
 parts:
   cqlsh:
     plugin: python
-    build-environment:
-      # cassandra-driver's optional C extensions need libev headers (ev.h) and a
-      # compiler on every target arch. Skip them to build a portable pure-Python driver
-      - CASS_DRIVER_NO_EXTENSIONS: "1"
+    build-packages:
+      - libev-dev
     source: https://github.com/jeffwidman/cqlsh.git
     source-tag: "6.2.1"
     override-build: |
@@ -33,3 +31,4 @@ parts:
       craftctl default
     stage-packages:
       - python3-venv
+      - libev4t64
