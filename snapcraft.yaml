@@ -43,5 +43,6 @@ parts:
       - cassandra-driver < 3.27
       - cqlsh == 5.0.5
       - futures
+      - thrift < 0.17
     stage-packages:
       - python2
